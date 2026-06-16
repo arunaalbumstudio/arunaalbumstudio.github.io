@@ -170,6 +170,7 @@ section{padding:80px 5%}
 .del-row{margin-top:10px}
 .delbtn{background:rgba(220,50,50,0.1);border:1px solid rgba(220,50,50,0.28);color:#ff6b6b;padding:8px 16px;border-radius:20px;font-size:12px;cursor:pointer;transition:all .3s;font-family:inherit}
 .delbtn:hover{background:rgba(220,50,50,0.2)}
+.storage-meter{margin-top:14px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(232,150,10,0.15);border-radius:10px}
 .admin-msg{text-align:center;font-size:12.5px;color:var(--gold);margin-top:10px;min-height:18px}
 .auth-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:20px}
 .auth-modal.open{display:flex}
@@ -195,6 +196,28 @@ section{padding:80px 5%}
 .pimg{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none}
 .poverlay{position:absolute;inset:0;background:rgba(0,0,0,0.58);opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .poverlay p{color:var(--gold);font-size:11.5px;letter-spacing:1px;font-weight:600}
+
+/* ══ BEFORE / AFTER ══ */
+.ba-upload-wrap{display:none;background:rgba(232,150,10,0.05);border:1px solid rgba(232,150,10,0.22);border-radius:14px;padding:20px 24px;margin-bottom:28px;max-width:720px;margin-left:auto;margin-right:auto}
+.ba-upload-wrap.visible{display:block}
+.ba-slot-select{margin-bottom:16px}
+.ba-admin-row{display:flex;gap:12px;flex-wrap:wrap}
+.ba-admin-row .ufield{flex:1;min-width:200px}
+.ba-grid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.ba-card{background:rgba(255,255,255,0.03);border:1px solid rgba(232,150,10,0.15);border-radius:14px;overflow:hidden}
+.ba-card-label{padding:10px 14px;font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid rgba(232,150,10,0.1);display:flex;align-items:center;justify-content:space-between}
+.ba-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#0a0a0a;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden}
+.ba-empty{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.ba-empty span{font-size:26px;opacity:.18}
+.ba-empty p{font-size:10.5px;color:rgba(232,150,10,0.28);letter-spacing:1px}
+.ba-before,.ba-after{position:absolute;inset:0;background-size:cover;background-position:center}
+.ba-after{clip-path:inset(0 50% 0 0)}
+.ba-divider{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:3px;background:var(--gold);box-shadow:0 0 10px rgba(232,150,10,0.6);cursor:ew-resize;z-index:10}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(232,150,10,0.3),0 4px 14px rgba(0,0,0,0.5);font-size:13px;color:#000;font-weight:900;pointer-events:none}
+.ba-tag{position:absolute;top:10px;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:20px;pointer-events:none;z-index:5}
+.ba-tag.before{left:10px;background:rgba(0,0,0,0.65);color:var(--muted);border:1px solid rgba(255,255,255,0.1)}
+.ba-tag.after{right:10px;background:rgba(232,150,10,0.85);color:#000}
+
 
 /* Lightbox */
 .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(10px);padding:20px}
@@ -311,98 +334,203 @@ footer{background:var(--dark);border-top:1px solid rgba(232,150,10,0.1);padding:
 /* ══════════════════════
    MOBILE RESPONSIVE
 ══════════════════════ */
-@media(max-width:1024px){
-  .srv-g{grid-template-columns:repeat(2,1fr)}
-  .pgrid{grid-template-columns:repeat(4,1fr)}
-  .orb-sys{width:46vw}
+/* ══════════════════════════════════════
+   RESPONSIVE — fully optimized
+══════════════════════════════════════ */
+
+/* ── 1280px: tighten wide layout ── */
+@media(max-width:1280px){
+  .hero-inner{max-width:100%;padding:50px 6%}
+  .about-g,.srv-g,.tg{max-width:100%;padding:0 1%}
+  .pgrid{max-width:100%}
+  .ba-grid{max-width:100%}
 }
 
+/* ── 1024px: tablet landscape ── */
+@media(max-width:1024px){
+  .srv-g{grid-template-columns:repeat(2,1fr);gap:14px}
+  .pgrid{grid-template-columns:repeat(4,1fr);gap:10px}
+  .ba-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  .orb-sys{width:46vw}
+  .tg{grid-template-columns:repeat(3,1fr)}
+  .pgrid2{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ── 768px: tablet portrait ── */
 @media(max-width:768px){
-  /* NAV mobile */
+  /* NAV */
   .nlinks,.ncta{display:none}
   .hbg{display:flex}
   nav{padding:10px 4%}
 
-  /* HERO mobile - stack vertically */
+  /* HERO */
   #hero{padding-top:60px;min-height:100svh}
-  .hero-inner{grid-template-columns:1fr;padding:30px 5% 40px;gap:0;min-height:auto;text-align:center}
+  .hero-inner{grid-template-columns:1fr;padding:28px 5% 44px;gap:0;min-height:auto;text-align:center}
   .hero-left{order:2;animation:fadeUp .9s ease .6s both}
-  .hero-right{order:1;min-height:260px;animation:fadeUp .9s ease .2s both}
+  .hero-right{order:1;min-height:240px;animation:fadeUp .9s ease .2s both}
   .hero-badge{font-size:9.5px;padding:6px 14px;letter-spacing:2px}
-  .hero-title{font-size:clamp(28px,7vw,40px);margin-bottom:12px}
-  .hero-sub{font-size:14px;margin:0 auto 24px;max-width:100%}
-  .hero-btns{justify-content:center;gap:10px}
-  .hero-stats{gap:10px}
-  .stat{padding:11px 6px}
-  .btn-g,.btn-o{padding:11px 20px;font-size:13px}
+  .hero-title{font-size:clamp(26px,7vw,40px);margin-bottom:12px}
+  .hero-sub{font-size:14px;margin:0 auto 22px;max-width:100%}
+  .hero-btns{justify-content:center;gap:10px;margin-bottom:28px}
+  .hero-stats{gap:8px}
+  .stat{padding:10px 6px}
+  .btn-g,.btn-o{padding:11px 18px;font-size:13px}
+  .orb-sys{position:relative;right:auto;top:auto;transform:none;width:220px;height:220px;max-width:220px;margin:0 auto}
+  .logo-float-wrap{width:52%}
 
-  /* Hero right - logo animation smaller on mobile */
-  .orb-sys{position:relative;right:auto;top:auto;transform:none;width:240px;height:240px;max-width:240px;margin:0 auto}
-  .logo-float-wrap{width:56%}
+  /* SECTIONS */
+  section{padding:56px 5%}
+  .sh{margin-bottom:36px}
+  .stitle{font-size:clamp(22px,5vw,36px)}
+  .sdesc{font-size:13.5px}
 
-  /* Sections */
-  section{padding:60px 5%}
-  .sh{margin-bottom:40px}
-
-  /* About */
-  .about-g{grid-template-columns:1fr;gap:30px}
-  .aimg{max-width:340px;margin:0 auto}
+  /* ABOUT */
+  .about-g{grid-template-columns:1fr;gap:28px}
+  .aimg{max-width:320px;margin:0 auto}
   .atext .sh{text-align:center}
   .atext .sh .divline{margin:12px auto 0}
   .feat{grid-template-columns:1fr 1fr}
 
-  /* Services */
-  .srv-g{grid-template-columns:1fr 1fr;gap:14px}
+  /* SERVICES */
+  .srv-g{grid-template-columns:1fr 1fr;gap:12px}
+  .sc{padding:20px 16px}
+  .sc h3{font-size:15px}
 
-  /* Portfolio */
-  .pgrid{grid-template-columns:repeat(3,1fr);gap:10px}
-  .ptabs{gap:6px}
-  .ptab{padding:7px 13px;font-size:11.5px}
-  .admin-panel{padding:18px}
+  /* PORTFOLIO */
+  .pgrid{grid-template-columns:repeat(3,1fr);gap:9px}
+  .ptabs{gap:6px;margin-bottom:20px;padding:0 2%}
+  .ptab{padding:7px 12px;font-size:11px;border-radius:20px}
+  .admin-panel{padding:16px;margin-bottom:20px}
   .uploader-row{grid-template-columns:1fr}
+  .admin-panel h4{font-size:11px}
 
-  /* Pricing */
-  .pgrid2{grid-template-columns:1fr;gap:14px;max-width:380px}
+  /* BEFORE/AFTER */
+  .ba-grid{grid-template-columns:1fr;gap:16px;padding:0 1%}
+  .ba-admin-row{flex-direction:column}
+  .ba-upload-wrap{padding:16px;margin-bottom:20px}
+  .ba-wrap{aspect-ratio:4/3}
+  .ba-handle{width:32px;height:32px;font-size:12px}
+  .ba-slot-select{margin-bottom:12px}
+
+  /* PRICING */
+  .pgrid2{grid-template-columns:1fr;gap:14px;max-width:420px}
   .pc.pop{transform:none}
+  .pc{padding:24px 18px}
 
-  /* Order form */
-  .fbox{padding:24px 16px;border-radius:16px}
+  /* ORDER */
+  .fbox{padding:22px 16px;border-radius:16px}
   .frow{grid-template-columns:1fr}
 
-  /* Testimonials */
-  .tg{grid-template-columns:1fr;gap:14px;max-width:480px;margin:0 auto}
+  /* TESTIMONIALS */
+  .tg{grid-template-columns:1fr;gap:12px;max-width:460px}
 
-  /* Contact */
-  .cw{grid-template-columns:1fr;gap:28px}
+  /* CONTACT */
+  .cw{grid-template-columns:1fr;gap:24px}
 
-  /* Footer */
-  .fw{grid-template-columns:1fr;gap:28px}
+  /* FOOTER */
+  .fw{grid-template-columns:1fr;gap:24px}
   .fb p{max-width:100%}
+  .fb-logo{height:40px}
 
   /* WA FAB */
   .wafab{bottom:16px;right:16px;width:48px;height:48px}
+  .wafab svg{width:24px;height:24px}
+
+  /* CTA */
+  .ctabtns{gap:10px}
 }
 
-@media(max-width:480px){
-  .hero-title{font-size:clamp(26px,8vw,36px)}
-  .hero-btns{flex-direction:column;align-items:center}
-  .btn-g,.btn-o{width:100%;max-width:280px;justify-content:center}
-  .hero-stats{grid-template-columns:repeat(3,1fr)}
-  .orb-sys{width:200px;height:200px}
+/* ── 600px: large phones ── */
+@media(max-width:600px){
   .pgrid{grid-template-columns:repeat(2,1fr);gap:8px}
-  .ptab{padding:7px 11px;font-size:11px}
-  .srv-g{grid-template-columns:1fr}
+  .srv-g{grid-template-columns:1fr 1fr;gap:10px}
+  .sc h3{font-size:14px}
+  .sc p{font-size:12px}
+  .tg{max-width:100%}
+  .pgrid2{max-width:100%}
+  .fbox{padding:18px 14px}
+  .ba-grid{gap:14px}
+  .ba-card-label{font-size:9.5px;padding:8px 12px}
+}
+
+/* ── 480px: small phones ── */
+@media(max-width:480px){
+  /* HERO */
+  .hero-title{font-size:clamp(24px,8vw,34px)}
+  .hero-btns{flex-direction:column;align-items:center;gap:10px}
+  .btn-g,.btn-o{width:100%;max-width:280px;justify-content:center;font-size:13px}
+  .hero-stats{grid-template-columns:repeat(3,1fr);gap:6px}
+  .stat{padding:9px 4px}
+  .stat-n{font-size:18px}
+  .stat-l{font-size:9px}
+  .orb-sys{width:190px;height:190px}
+
+  /* NAV mobile menu */
+  .mob a{font-size:20px}
+
+  /* SECTIONS */
+  section{padding:48px 4%}
+  .stitle{font-size:clamp(20px,6.5vw,30px)}
+  .sh{margin-bottom:28px}
+
+  /* PORTFOLIO */
+  .pgrid{grid-template-columns:repeat(2,1fr);gap:7px}
+  .ptabs{gap:5px;padding:0 1%}
+  .ptab{padding:6px 10px;font-size:10.5px}
+  .pslot{border-radius:9px}
+  .slot-btn{width:30px;height:30px;font-size:11px}
+
+  /* BEFORE/AFTER */
+  .ba-wrap{aspect-ratio:4/3}
+  .ba-handle{width:30px;height:30px;font-size:11px}
+  .ba-tag{font-size:8.5px;padding:3px 7px;top:8px}
+  .ba-tag.before{left:8px}
+  .ba-tag.after{right:8px}
+  .ba-card-label{font-size:9px;padding:8px 10px}
+
+  /* ADMIN */
+  .upload-area{padding:16px}
+  .ubtn{font-size:12.5px;padding:10px}
+  .admin-panel{padding:14px}
+
+  /* SERVICES */
+  .srv-g{grid-template-columns:1fr;gap:10px}
+  .sc{padding:18px 14px}
+
+  /* CONTACT */
+  .cctabox{padding:22px 16px}
+  .walink{font-size:13px;padding:11px 18px}
+
+  /* CTA */
   .ctabtns{flex-direction:column;align-items:center}
   .ctabtns .btn-g,.ctabtns .btn-o{width:100%;max-width:280px;justify-content:center}
-  section{padding:52px 4%}
-  .stitle{font-size:clamp(22px,6vw,32px)}
-  .pgrid2{max-width:100%}
+
+  /* FOOTER */
+  .fw{gap:20px}
+  .fcol h4{font-size:10px}
+
+  /* PRICING */
+  .pc{padding:20px 14px}
+  .pval{font-size:24px}
+
+  /* ORDER */
+  .fg label{font-size:9.5px}
+  .fg input,.fg select,.fg textarea{font-size:13px;padding:10px 11px}
+  .fsub{font-size:13.5px;padding:13px}
 }
 
+/* ── 360px: very small phones ── */
 @media(max-width:360px){
-  .hero-stats{grid-template-columns:repeat(3,1fr)}
-  .stat-n{font-size:18px}
-  .orb-sys{width:180px;height:180px}
+  .hero-title{font-size:clamp(22px,7.5vw,30px)}
+  .orb-sys{width:170px;height:170px}
+  .stat-n{font-size:17px}
+  .pgrid{grid-template-columns:repeat(2,1fr);gap:6px}
+  .ptab{padding:6px 8px;font-size:10px}
+  .btn-g,.btn-o{font-size:12.5px;padding:10px 16px}
+  .ba-wrap{aspect-ratio:1/1}
+  section{padding:42px 4%}
+  .slot-btn{width:28px;height:28px;font-size:10.5px}
+  nav{padding:8px 4%}
 }
 </style>
 </head>
@@ -588,15 +716,61 @@ footer{background:var(--dark);border-top:1px solid rgba(232,150,10,0.1);padding:
       <button class="delbtn" onclick="deleteImage()">&#128465; Delete Selected Slot</button>
     </div>
     <div class="admin-msg" id="adminMsg"></div>
+    <div class="storage-meter">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:15px">☁️</span>
+        <span style="font-size:11px;color:var(--muted);letter-spacing:.5px">Images stored on <strong style="color:var(--gold)">Cloudinary CDN</strong> — no storage limits</span>
+      </div>
+      <p style="font-size:10.5px;color:var(--muted);line-height:1.6">Upload any size image. Cloudinary auto-optimizes quality &amp; format for fast loading. Only the image URL is saved locally.</p>
+    </div>
   </div>
+  <!-- Admin BA upload panel — shown only when admin logs in & BA tab is active -->
+  <div class="ba-upload-wrap" id="baUploadWrap">
+    <div class="ba-slot-select">
+      <label style="font-size:10.5px;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Select Slot (1–10)</label>
+      <div id="baSlotBtns" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:8px"></div>
+    </div>
+    <div class="ba-admin-row">
+      <div class="ufield">
+        <label>Before Image</label>
+        <div class="upload-area" style="padding:14px">
+          <input type="file" accept="image/*" id="baBeforeInput" onchange="baPreview(this,'before')">
+          <span class="ui">🖼</span>
+          <p>Tap to choose Before</p>
+          <img class="upload-preview" id="baBeforePreview" alt="">
+        </div>
+        <button class="ubtn" style="margin-top:8px" onclick="baSave('before')">⬆ Upload Before</button>
+      </div>
+      <div class="ufield">
+        <label>After Image</label>
+        <div class="upload-area" style="padding:14px">
+          <input type="file" accept="image/*" id="baAfterInput" onchange="baPreview(this,'after')">
+          <span class="ui">✨</span>
+          <p>Tap to choose After</p>
+          <img class="upload-preview" id="baAfterPreview" alt="">
+        </div>
+        <button class="ubtn" style="margin-top:8px" onclick="baSave('after')">⬆ Upload After</button>
+      </div>
+    </div>
+    <div class="del-row" style="text-align:center;margin-top:6px">
+      <button class="delbtn" onclick="baClear('before')">🗑 Clear Before</button>
+      &nbsp;
+      <button class="delbtn" onclick="baClear('after')">🗑 Clear After</button>
+    </div>
+    <div class="admin-msg" id="baMsg"></div>
+  </div>
+
   <div class="ptabs fi">
     <button class="ptab active" onclick="switchTab('wedding',this)">&#128141; Wedding</button>
     <button class="ptab" onclick="switchTab('prewedding',this)">&#128149; Pre-Wedding</button>
     <button class="ptab" onclick="switchTab('engagement',this)">&#128142; Engagement</button>
     <button class="ptab" onclick="switchTab('halfsaree',this)">&#128248; Half Saree</button>
     <button class="ptab" onclick="switchTab('birthday',this)">&#127874; Birthday</button>
+    <button class="ptab" onclick="switchTab('beforeafter',this)">⟺ Before &amp; After</button>
   </div>
   <div class="pgrid" id="portGrid"></div>
+  <!-- BA Grid (10 sliders) -->
+  <div class="ba-grid" id="baGrid" style="display:none"></div>
 </section>
 
 <!-- PRICING -->
@@ -764,11 +938,27 @@ footer{background:var(--dark);border-top:1px solid rgba(232,150,10,0.1);padding:
 </a>
 
 <script>
+// ══════════════════════════════════════════════════
+//  CLOUDINARY CONFIG — replace with your own values
+//  Sign up free at https://cloudinary.com
+//  Cloud name: Settings → Account → Cloud name
+//  Upload Preset: Settings → Upload → Add preset
+//    (set signing mode = Unsigned)
+// ══════════════════════════════════════════════════
+const CLOUDINARY_CLOUD = 'dor6ykuhh';
+const CLOUDINARY_PRESET = 'aruna_unsigned';
+
 const ADMIN_PASSWORD='raghu2025';
 const CAT_LABELS={wedding:'Wedding',prewedding:'Pre-Wedding',engagement:'Engagement',halfsaree:'Half Saree',birthday:'Birthday'};
 const SLOTS=10;
-let isAdmin=false,activeCat='wedding',selectedSlot=1,lbImages=[],lbIndex=0,pendingFile=null;
-function stKey(c,s){return 'aas_port_'+c+'_'+s;}
+
+// ── localStorage used ONLY for image URLs (tiny strings) + UI state ──
+function urlKey(c,s){return 'aas_url_'+c+'_'+s;}
+function getUrl(c,s){return localStorage.getItem(urlKey(c,s));}
+function setUrl(c,s,url){localStorage.setItem(urlKey(c,s),url);}
+function delUrl(c,s){localStorage.removeItem(urlKey(c,s));}
+
+let isAdmin=false,activeCat='wedding',selectedSlot=1,lbImages=[],lbIndex=0,pendingFile=null,pendingFileObj=null;
 
 // ── HERO ANIMATIONS (combined: particles + floating albums + orbit rings + bokeh) ──
 (function(){
@@ -853,52 +1043,235 @@ function renderSlotBtns(){
   cont.innerHTML='';
   for(let i=1;i<=SLOTS;i++){
     const btn=document.createElement('button');
-    btn.className='slot-btn'+(localStorage.getItem(stKey(cat,i))?' filled':'')+(i===selectedSlot?' selected':'');
+    btn.className='slot-btn'+(getUrl(cat,i)?' filled':'')+(i===selectedSlot?' selected':'');
     btn.textContent=i;
     btn.onclick=(function(slot){return function(){
       selectedSlot=slot;
       document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected'));
       this.classList.add('selected');
-      const ex=localStorage.getItem(stKey(cat,slot));
+      const ex=getUrl(cat,slot);
       if(ex){document.getElementById('upPreview').src=ex;document.getElementById('upPreview').style.display='block';}
       else{document.getElementById('upPreview').style.display='none';document.getElementById('upPreview').src='';}
-      pendingFile=null;
+      pendingFile=null;pendingFileObj=null;
     };})(i);
     cont.appendChild(btn);
   }
 }
+// ── CLOUDINARY UPLOAD ──
+async function uploadToCloudinary(file){
+  const fd=new FormData();
+  fd.append('file',file);
+  fd.append('upload_preset',CLOUDINARY_PRESET);
+  fd.append('folder','aruna_album_studio');
+  const res=await fetch('https://api.cloudinary.com/v1_1/'+CLOUDINARY_CLOUD+'/image/upload',{method:'POST',body:fd});
+  if(!res.ok)throw new Error('Upload failed: '+res.status);
+  const data=await res.json();
+  if(data.error)throw new Error(data.error.message);
+  return data.secure_url.replace('/upload/','/upload/f_auto,q_auto,w_1200/');
+}
+
 function previewFile(input){
   if(!input.files||!input.files[0])return;
-  if(input.files[0].size>5*1024*1024){showMsg('Max 5MB per image','#ff6b6b');return;}
-  const r=new FileReader();
-  r.onload=e=>{pendingFile=e.target.result;document.getElementById('upPreview').src=pendingFile;document.getElementById('upPreview').style.display='block';showMsg('Image ready. Click Save.','var(--gold)');};
-  r.readAsDataURL(input.files[0]);
+  if(input.files[0].size>20*1024*1024){showMsg('File too large. Max 20MB.','#ff6b6b');return;}
+  pendingFileObj=input.files[0];
+  const url=URL.createObjectURL(input.files[0]);
+  document.getElementById('upPreview').src=url;
+  document.getElementById('upPreview').style.display='block';
+  const kb=Math.round(input.files[0].size/1024);
+  showMsg('Image ready ('+kb+' KB). Click Save to upload.','var(--gold)');
 }
-function saveImage(){
+
+async function saveImage(){
   if(!isAdmin){showMsg('Login as admin first','#ff6b6b');return;}
-  if(!pendingFile){showMsg('Select an image first','#ff6b6b');return;}
+  if(!pendingFileObj){showMsg('Select an image first','#ff6b6b');return;}
+  if(!CLOUDINARY_CLOUD||!CLOUDINARY_PRESET){
+    showMsg('⚠️ Set your Cloudinary credentials at the top of the script!','#ff6b6b');return;
+  }
   const cat=document.getElementById('upCat').value;
-  try{localStorage.setItem(stKey(cat,selectedSlot),pendingFile);pendingFile=null;renderSlotBtns();renderGrid(activeCat);showMsg('&#10003; Saved — '+CAT_LABELS[cat]+' slot '+selectedSlot,'#4CAF50');}
-  catch(e){showMsg('Storage full! Delete some images first.','#ff6b6b');}
+  const btn=document.querySelector('.ubtn');
+  btn.disabled=true;btn.textContent='Uploading…';
+  showMsg('Uploading to Cloudinary…','var(--gold)');
+  try{
+    const url=await uploadToCloudinary(pendingFileObj);
+    setUrl(cat,selectedSlot,url);
+    pendingFileObj=null;pendingFile=null;
+    renderSlotBtns();
+    renderGrid(activeCat);
+    showMsg('&#10003; Saved — '+CAT_LABELS[cat]+' slot '+selectedSlot,'#4CAF50');
+  }catch(e){
+    showMsg('&#9888; Upload failed: '+e.message,'#ff6b6b');
+  }finally{
+    btn.disabled=false;btn.textContent='&#10003; Save to Portfolio';
+  }
 }
+
 function deleteImage(){
   if(!isAdmin){showMsg('Login as admin first','#ff6b6b');return;}
   const cat=document.getElementById('upCat').value;
-  if(!localStorage.getItem(stKey(cat,selectedSlot))){showMsg('Slot '+selectedSlot+' is empty','#ff6b6b');return;}
-  if(!confirm('Delete image from '+CAT_LABELS[cat]+' slot '+selectedSlot+'?'))return;
-  localStorage.removeItem(stKey(cat,selectedSlot));
+  if(!getUrl(cat,selectedSlot)){showMsg('Slot '+selectedSlot+' is empty','#ff6b6b');return;}
+  if(!confirm('Remove image from '+CAT_LABELS[cat]+' slot '+selectedSlot+'?\n(File stays on Cloudinary — only removed from this site)'))return;
+  delUrl(cat,selectedSlot);
   document.getElementById('upPreview').style.display='none';
   document.getElementById('upPreview').src='';
-  renderSlotBtns();renderGrid(activeCat);showMsg('Deleted slot '+selectedSlot,'#ff6b6b');
+  pendingFileObj=null;pendingFile=null;
+  renderSlotBtns();renderGrid(activeCat);showMsg('Removed slot '+selectedSlot,'#ff6b6b');
 }
 function showMsg(txt,col){const m=document.getElementById('adminMsg');m.innerHTML=txt;m.style.color=col||'var(--gold)';setTimeout(()=>{if(m.innerHTML===txt)m.innerHTML='';},4000);}
+
+// ── BEFORE / AFTER (10 slots) ──
+const BA_SLOTS=10;
+let baSelectedSlot=1;
+let baPending={before:null,after:null};
+
+function baUrlKey(slot,side){return 'aas_ba_'+slot+'_'+side;}
+function getBaUrl(slot,side){return localStorage.getItem(baUrlKey(slot,side));}
+function setBaUrl(slot,side,url){localStorage.setItem(baUrlKey(slot,side),url);}
+function delBaUrl(slot,side){localStorage.removeItem(baUrlKey(slot,side));}
+
+function renderBaSlotBtns(){
+  const cont=document.getElementById('baSlotBtns');
+  if(!cont)return;
+  cont.innerHTML='';
+  for(let i=1;i<=BA_SLOTS;i++){
+    const hasBefore=!!getBaUrl(i,'before');
+    const hasAfter=!!getBaUrl(i,'after');
+    const filled=hasBefore||hasAfter;
+    const both=hasBefore&&hasAfter;
+    const btn=document.createElement('button');
+    btn.className='slot-btn'+(both?' filled':filled?' slot-btn-partial':'')+(i===baSelectedSlot?' selected':'');
+    btn.textContent=i;
+    btn.title=both?'Both images set':filled?'Partial (one image missing)':'Empty';
+    btn.onclick=(function(slot){return function(){
+      baSelectedSlot=slot;
+      document.querySelectorAll('#baSlotBtns .slot-btn').forEach(b=>b.classList.remove('selected'));
+      this.classList.add('selected');
+      // reset pending & previews
+      baPending={before:null,after:null};
+      const bp=document.getElementById('baBeforePreview');
+      const ap=document.getElementById('baAfterPreview');
+      if(bp){bp.src='';bp.style.display='none';}
+      if(ap){ap.src='';ap.style.display='none';}
+      document.getElementById('baBeforeInput').value='';
+      document.getElementById('baAfterInput').value='';
+    };})(i);
+    cont.appendChild(btn);
+  }
+}
+
+function renderBaGrid(){
+  const grid=document.getElementById('baGrid');
+  if(!grid)return;
+  grid.innerHTML='';
+  for(let i=1;i<=BA_SLOTS;i++){
+    const beforeUrl=getBaUrl(i,'before');
+    const afterUrl=getBaUrl(i,'after');
+    const card=document.createElement('div');
+    card.className='ba-card';
+    card.innerHTML='<div class="ba-card-label"><span>⟺ Transformation '+i+'</span></div>';
+    const wrap=document.createElement('div');
+    wrap.className='ba-wrap';
+    wrap.id='baWrap'+i;
+    if(!beforeUrl&&!afterUrl){
+      wrap.innerHTML='<div class="ba-empty"><span>⟺</span><p>Slot '+i+' — Upload via Admin</p></div>';
+    } else {
+      if(beforeUrl){
+        const d=document.createElement('div');
+        d.className='ba-before';
+        d.style.backgroundImage='url('+beforeUrl+')';
+        wrap.appendChild(d);
+        const t=document.createElement('span');t.className='ba-tag before';t.textContent='BEFORE';wrap.appendChild(t);
+      }
+      if(afterUrl){
+        const d=document.createElement('div');
+        d.className='ba-after';d.id='baAfter'+i;
+        d.style.backgroundImage='url('+afterUrl+')';
+        wrap.appendChild(d);
+        const t=document.createElement('span');t.className='ba-tag after';t.textContent='AFTER';wrap.appendChild(t);
+      }
+      if(beforeUrl&&afterUrl){
+        const div=document.createElement('div');div.className='ba-divider';div.id='baDivider'+i;
+        div.innerHTML='<div class="ba-handle">⟺</div>';
+        wrap.appendChild(div);
+        baBindDrag(wrap,div,i);
+      }
+    }
+    card.appendChild(wrap);
+    grid.appendChild(card);
+  }
+}
+
+function baBindDrag(wrap,divider,idx){
+  let dragging=false;
+  function setPos(clientX){
+    const rect=wrap.getBoundingClientRect();
+    let pct=Math.min(Math.max((clientX-rect.left)/rect.width,0.02),0.98)*100;
+    divider.style.left=pct+'%';
+    const after=document.getElementById('baAfter'+idx);
+    if(after)after.style.clipPath='inset(0 '+(100-pct)+'% 0 0)';
+  }
+  wrap.addEventListener('mousedown',e=>{dragging=true;setPos(e.clientX);e.preventDefault();});
+  window.addEventListener('mousemove',e=>{if(dragging)setPos(e.clientX);});
+  window.addEventListener('mouseup',()=>{dragging=false;});
+  wrap.addEventListener('touchstart',e=>{dragging=true;setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('touchmove',e=>{if(dragging&&document.getElementById('baGrid').style.display!=='none')setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener('touchend',()=>{dragging=false;});
+}
+
+function baPreview(input,side){
+  if(!input.files||!input.files[0])return;
+  baPending[side]=input.files[0];
+  const el=document.getElementById(side==='before'?'baBeforePreview':'baAfterPreview');
+  el.src=URL.createObjectURL(input.files[0]);
+  el.style.display='block';
+  const cap=side.charAt(0).toUpperCase()+side.slice(1);
+  baShowMsg(''+cap+' selected for slot '+baSelectedSlot+'. Click Upload.','var(--gold)');
+}
+
+async function baSave(side){
+  if(!isAdmin){baShowMsg('Login as admin first','#ff6b6b');return;}
+  if(!baPending[side]){baShowMsg('Select an image first','#ff6b6b');return;}
+  const btn=event.target;
+  const cap=side.charAt(0).toUpperCase()+side.slice(1);
+  btn.disabled=true;btn.textContent='Uploading…';
+  baShowMsg('Uploading '+cap+' for slot '+baSelectedSlot+'…','var(--gold)');
+  try{
+    const fd=new FormData();
+    fd.append('file',baPending[side]);
+    fd.append('upload_preset',CLOUDINARY_PRESET);
+    fd.append('folder','aruna_album_studio/before_after');
+    const res=await fetch('https://api.cloudinary.com/v1_1/'+CLOUDINARY_CLOUD+'/image/upload',{method:'POST',body:fd});
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const url=data.secure_url.replace('/upload/','/upload/f_auto,q_auto,w_1400/');
+    setBaUrl(baSelectedSlot,side,url);
+    baPending[side]=null;
+    renderBaSlotBtns();
+    renderBaGrid();
+    baShowMsg('✓ '+cap+' saved to slot '+baSelectedSlot,'#4CAF50');
+  }catch(e){baShowMsg('Upload failed: '+e.message,'#ff6b6b');}
+  finally{btn.disabled=false;btn.textContent='⬆ Upload '+cap;}
+}
+
+function baClear(side){
+  const cap=side.charAt(0).toUpperCase()+side.slice(1);
+  if(!getBaUrl(baSelectedSlot,side)){baShowMsg('Slot '+baSelectedSlot+' '+cap+' is already empty','#ff6b6b');return;}
+  if(!confirm('Remove '+cap+' image from slot '+baSelectedSlot+'?'))return;
+  delBaUrl(baSelectedSlot,side);
+  const el=document.getElementById(side==='before'?'baBeforePreview':'baAfterPreview');
+  if(el){el.src='';el.style.display='none';}
+  renderBaSlotBtns();
+  renderBaGrid();
+  baShowMsg('Cleared '+cap+' from slot '+baSelectedSlot,'#ff6b6b');
+}
+
+function baShowMsg(txt,col){const m=document.getElementById('baMsg');if(!m)return;m.innerHTML=txt;m.style.color=col||'var(--gold)';setTimeout(()=>{if(m.innerHTML===txt)m.innerHTML='';},4000);}
 
 // ── GRID ──
 function renderGrid(cat){
   const grid=document.getElementById('portGrid');
   grid.innerHTML='';lbImages=[];
   for(let i=1;i<=SLOTS;i++){
-    const img=localStorage.getItem(stKey(cat,i));
+    const img=getUrl(cat,i);
     const slot=document.createElement('div');
     slot.className='pslot'+(img?' has-img':'');
     if(img){
@@ -915,8 +1288,24 @@ function switchTab(cat,btn){
   activeCat=cat;
   document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderGrid(cat);
-  if(isAdmin){document.getElementById('upCat').value=cat;renderSlotBtns();}
+  const portGrid=document.getElementById('portGrid');
+  const baGrid=document.getElementById('baGrid');
+  const adminPanel=document.getElementById('adminPanel');
+  const baUploadWrap=document.getElementById('baUploadWrap');
+  if(cat==='beforeafter'){
+    portGrid.style.display='none';
+    baGrid.style.display='grid';
+    if(adminPanel)adminPanel.style.display='none';
+    if(isAdmin&&baUploadWrap){baUploadWrap.style.display='block';renderBaSlotBtns();}
+    renderBaGrid();
+  } else {
+    portGrid.style.display='';
+    baGrid.style.display='none';
+    if(adminPanel)adminPanel.style.display='';
+    if(baUploadWrap)baUploadWrap.style.display='none';
+    renderGrid(cat);
+    if(isAdmin){document.getElementById('upCat').value=cat;renderSlotBtns();}
+  }
 }
 
 // ── LIGHTBOX ──
