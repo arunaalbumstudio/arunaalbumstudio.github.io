@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Aruna Album Studio by Raghu Edits | Professional Wedding Album Design</title>
 <meta name="description" content="Professional wedding album design services. Premium wedding, pre-wedding, birthday albums. Contact +91 9059132444.">
 <meta name="keywords" content="Album Design, Wedding Album Design, Aruna Album Studio, Raghu Edits">
@@ -186,6 +189,8 @@ section{padding:80px 5%}
 .ptabs{display:flex;gap:8px;justify-content:center;margin-bottom:32px;flex-wrap:wrap;padding:0 4%}
 .ptab{background:rgba(255,255,255,0.04);border:1px solid rgba(232,150,10,0.17);color:var(--muted);padding:8px 16px;border-radius:25px;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;white-space:nowrap}
 .ptab.active,.ptab:hover{background:linear-gradient(135deg,var(--gold),var(--gd));color:#000;border-color:var(--gold);font-weight:700}
+.ptab.ba-tab{border-color:rgba(232,150,10,0.35);color:var(--gold)}
+.ptab.ba-tab.active{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);color:var(--gold);border-color:var(--gold);box-shadow:0 0 16px rgba(232,150,10,0.25)}
 .pgrid{max-width:1040px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .pslot{border-radius:11px;overflow:hidden;position:relative;aspect-ratio:3/4;background:rgba(255,255,255,0.03);border:1px dashed rgba(232,150,10,0.14);transition:all .3s}
 .pslot.has-img{border:none}
@@ -724,8 +729,20 @@ footer{background:var(--dark);border-top:1px solid rgba(232,150,10,0.1);padding:
       <p style="font-size:10.5px;color:var(--muted);line-height:1.6">Upload any size image. Cloudinary auto-optimizes quality &amp; format for fast loading. Only the image URL is saved locally.</p>
     </div>
   </div>
-  <!-- Admin BA upload panel — shown only when admin logs in & BA tab is active -->
+  <div class="ptabs fi">
+    <button class="ptab active" onclick="switchTab('wedding',this)">&#128141; Wedding</button>
+    <button class="ptab" onclick="switchTab('prewedding',this)">&#128149; Pre-Wedding</button>
+    <button class="ptab" onclick="switchTab('engagement',this)">&#128142; Engagement</button>
+    <button class="ptab" onclick="switchTab('halfsaree',this)">&#128248; Half Saree</button>
+    <button class="ptab" onclick="switchTab('birthday',this)">&#127874; Birthday</button>
+    <button class="ptab ba-tab" onclick="switchTab('beforeafter',this)">⟺ Before &amp; After</button>
+  </div>
+
+  <!-- Admin BA upload panel — only visible on BA tab when admin logged in -->
   <div class="ba-upload-wrap" id="baUploadWrap">
+    <div style="text-align:center;margin-bottom:14px">
+      <span style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase">⟺ Before &amp; After Admin Panel</span>
+    </div>
     <div class="ba-slot-select">
       <label style="font-size:10.5px;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Select Slot (1–10)</label>
       <div id="baSlotBtns" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:8px"></div>
@@ -760,16 +777,7 @@ footer{background:var(--dark);border-top:1px solid rgba(232,150,10,0.1);padding:
     <div class="admin-msg" id="baMsg"></div>
   </div>
 
-  <div class="ptabs fi">
-    <button class="ptab active" onclick="switchTab('wedding',this)">&#128141; Wedding</button>
-    <button class="ptab" onclick="switchTab('prewedding',this)">&#128149; Pre-Wedding</button>
-    <button class="ptab" onclick="switchTab('engagement',this)">&#128142; Engagement</button>
-    <button class="ptab" onclick="switchTab('halfsaree',this)">&#128248; Half Saree</button>
-    <button class="ptab" onclick="switchTab('birthday',this)">&#127874; Birthday</button>
-    <button class="ptab" onclick="switchTab('beforeafter',this)">⟺ Before &amp; After</button>
-  </div>
   <div class="pgrid" id="portGrid"></div>
-  <!-- BA Grid (10 sliders) -->
   <div class="ba-grid" id="baGrid" style="display:none"></div>
 </section>
 
@@ -1032,7 +1040,19 @@ function openAuth(){document.getElementById('authModal').classList.add('open');s
 function closeAuth(){document.getElementById('authModal').classList.remove('open');document.getElementById('authPwd').value='';document.getElementById('authErr').textContent='';}
 function authLogin(){
   const pw=document.getElementById('authPwd').value;
-  if(pw===ADMIN_PASSWORD){isAdmin=true;closeAuth();document.getElementById('adminPanel').classList.add('open');renderSlotBtns();showMsg('&#10003; Admin access granted','#4CAF50');}
+  if(pw===ADMIN_PASSWORD){
+    isAdmin=true;closeAuth();
+    if(activeCat==='beforeafter'){
+      // on BA tab — show BA panel not main admin panel
+      const baWrap=document.getElementById('baUploadWrap');
+      if(baWrap){baWrap.style.display='block';renderBaSlotBtns();}
+      showMsg('&#10003; Admin access granted','#4CAF50');
+    } else {
+      document.getElementById('adminPanel').classList.add('open');
+      renderSlotBtns();
+      showMsg('&#10003; Admin access granted','#4CAF50');
+    }
+  }
   else{document.getElementById('authErr').textContent='Incorrect password. Try again.';document.getElementById('authPwd').value='';document.getElementById('authPwd').focus();}
 }
 
@@ -1292,19 +1312,29 @@ function switchTab(cat,btn){
   const baGrid=document.getElementById('baGrid');
   const adminPanel=document.getElementById('adminPanel');
   const baUploadWrap=document.getElementById('baUploadWrap');
+  const adminToggle=document.querySelector('.admin-toggle');
   if(cat==='beforeafter'){
     portGrid.style.display='none';
     baGrid.style.display='grid';
-    if(adminPanel)adminPanel.style.display='none';
-    if(isAdmin&&baUploadWrap){baUploadWrap.style.display='block';renderBaSlotBtns();}
+    if(adminPanel){adminPanel.style.display='none';}
+    if(adminToggle){adminToggle.style.display='none';}
+    if(baUploadWrap){
+      if(isAdmin){baUploadWrap.style.display='block';renderBaSlotBtns();}
+      else{baUploadWrap.style.display='none';}
+    }
     renderBaGrid();
   } else {
     portGrid.style.display='';
     baGrid.style.display='none';
-    if(adminPanel)adminPanel.style.display='';
-    if(baUploadWrap)baUploadWrap.style.display='none';
+    if(adminPanel){adminPanel.style.display=isAdmin?'block':'';}
+    if(adminToggle){adminToggle.style.display='';}
+    if(baUploadWrap){baUploadWrap.style.display='none';}
     renderGrid(cat);
-    if(isAdmin){document.getElementById('upCat').value=cat;renderSlotBtns();}
+    if(isAdmin){
+      const upCat=document.getElementById('upCat');
+      if(upCat)upCat.value=cat;
+      renderSlotBtns();
+    }
   }
 }
 
